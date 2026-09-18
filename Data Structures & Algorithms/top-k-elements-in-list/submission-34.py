@@ -1,0 +1,23 @@
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+
+        # make hashmap to get freq: val
+        count = {}
+        for num in nums:
+            count[num] = count.get(num, 0) + 1
+
+        # make an array of arrays with index being freq        
+        freq = [[] for i in range(len(nums) + 1)]
+        for num, cnt in count.items():
+            freq[cnt].append(num)
+
+        # loop backwards through bucket to find k most frequest elements
+        res = []
+        for i in range(len(nums), 0, -1):
+            
+            for num in freq[i]:
+                res.append(num)
+
+                if len(res) == k:
+                    return res
+
